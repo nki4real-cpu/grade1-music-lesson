@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade 1 Music — Musical Intervals</title>
+<style>
+:root{
+  --ink:#24324a; --muted:#61708a; --paper:#ffffff; --bg:#f3f7ff;
+  --primary:#5b5be7; --secondary:#22b8a7; --accent:#ffb84d;
+  --pink:#ff7aa8; --line:#dfe6f2; --good:#159570;
+  --shadow:0 10px 28px rgba(50,70,110,.12);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);
+  background:linear-gradient(180deg,#eef4ff 0%,#fff8ed 100%);
+  line-height:1.6;
+}
+header{
+  background:linear-gradient(135deg,#5b5be7,#7b6cf6 55%,#20b9a8);
+  color:#fff;padding:28px 18px 34px;text-align:center;
+}
+.header-inner{max-width:1050px;margin:auto}
+.badge{
+  display:inline-block;background:rgba(255,255,255,.2);padding:6px 14px;
+  border-radius:30px;font-weight:bold;font-size:.9rem;margin-bottom:10px;
+}
+h1{font-size:clamp(2rem,6vw,3.6rem);margin:4px 0 8px}
+.subtitle{font-size:clamp(1rem,2.5vw,1.25rem);margin:0 auto;max-width:760px}
+.progress-wrap{max-width:760px;margin:22px auto 0}
+.progress{height:9px;background:rgba(255,255,255,.25);border-radius:20px;overflow:hidden}
+.progress-bar{height:100%;width:0;background:#fff;transition:.3s}
+.progress-text{font-size:.85rem;margin-top:6px}
+main{width:min(920px,calc(100% - 28px));margin:24px auto 60px}
+.outline{
+  background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px;
+  box-shadow:var(--shadow);margin-bottom:20px;position:sticky;top:8px;z-index:5;
+}
+.outline strong{display:block;margin-bottom:10px}
+.nav{
+  display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;
+  scrollbar-width:thin;
+}
+.nav a{
+  flex:0 0 auto;text-decoration:none;color:var(--ink);background:#f0f3ff;
+  padding:8px 12px;border-radius:12px;font-weight:bold;font-size:.86rem;
+}
+.nav a:hover{background:#e2e6ff}
+.card{
+  background:var(--paper);border:1px solid var(--line);border-radius:24px;
+  padding:clamp(20px,4vw,34px);margin:18px 0;box-shadow:var(--shadow);
+}
+.card h2{margin-top:0;font-size:clamp(1.45rem,4vw,2rem)}
+h3{color:var(--primary)}
+.hero-card{
+  background:linear-gradient(135deg,#fff,#f2f1ff);
+  text-align:center;border:0;
+}
+.emoji{font-size:3rem}
+.callout{
+  border-left:6px solid var(--accent);background:#fff8e9;padding:15px 17px;
+  border-radius:14px;margin:15px 0;
+}
+.definition{
+  font-size:clamp(1.2rem,3vw,1.65rem);font-weight:bold;text-align:center;
+  background:#eef0ff;border:2px dashed #8b87f4;padding:20px;border-radius:18px;
+}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.example{
+  border:1px solid var(--line);border-radius:18px;padding:17px;background:#fbfcff;
+}
+.example .icon{font-size:2rem}
+.steps{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px 0}
+.note{
+  width:46px;height:46px;border-radius:50%;background:#5b5be7;color:#fff;
+  display:grid;place-items:center;font-weight:bold;box-shadow:0 5px 10px #5b5be733;
+}
+.note.active{background:#ff7aa8;transform:scale(1.08)}
+.staff{
+  width:100%;overflow:hidden;background:#fffdf6;border:1px solid #eadfbe;
+  border-radius:18px;padding:12px;margin:18px 0;
+}
+.staff svg{width:100%;height:auto;display:block}
+table{width:100%;border-collapse:collapse;margin:16px 0;background:#fff}
+th,td{padding:11px;border:1px solid var(--line);text-align:left}
+th{background:#eef0ff}
+.activity{
+  background:linear-gradient(135deg,#eafff8,#eef0ff);border-radius:20px;padding:20px;
+}
+button{
+  border:0;border-radius:14px;padding:11px 16px;font-weight:bold;cursor:pointer;
+  background:var(--primary);color:white;font-size:.95rem;margin:5px;
+}
+button.secondary{background:var(--secondary)}
+button.orange{background:#f39a22}
+button:active{transform:scale(.98)}
+.result{font-weight:bold;min-height:25px;margin-top:8px}
+.quiz-question{
+  border:1px solid var(--line);padding:16px;border-radius:16px;margin:12px 0;
+  background:#fcfdff;
+}
+.option{
+  display:block;background:#f0f3ff;color:var(--ink);text-align:left;width:100%;
+  margin:7px 0;
+}
+.option.correct{background:#dff8ee;border:2px solid #40b995}
+.option.wrong{background:#ffe7ee;border:2px solid #ff7aa8}
+.answer{display:none;margin-top:8px;color:var(--good);font-weight:bold}
+footer{text-align:center;color:var(--muted);padding:25px 15px 45px}
+.small{font-size:.9rem;color:var(--muted)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.checklist li{margin:7px 0}
+.lesson-nav{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+.lesson-nav button{flex:1}
+@media(max-width:650px){
+  main{width:min(100% - 18px,920px);margin-top:12px}
+  .outline{top:4px;border-radius:15px}
+  .grid,.two-col{grid-template-columns:1fr}
+  .card{border-radius:18px;padding:18px}
+  .nav a{font-size:.78rem;padding:7px 10px}
+  table{font-size:.9rem}
+  th,td{padding:8px}
+  .lesson-nav{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="badge">🎵 GRADE 1 • BEGINNER MUSIC</div>
+    <h1>Musical Intervals</h1>
+    <p class="subtitle">A simple, colourful interactive lecture note for learning the distance between musical notes.</p>
+    <div class="progress-wrap">
+      <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="progress-text" id="progressText">Start learning • 0%</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="outline">
+    <strong>📚 Lesson Outline</strong>
+    <div class="nav">
+      <a href="#welcome">Welcome</a>
+      <a href="#meaning">Meaning</a>
+      <a href="#examples">Examples</a>
+      <a href="#staff">Staff</a>
+      <a href="#activity">Activity</a>
+      <a href="#classwork">Classwork</a>
+      <a href="#revision">Revision</a>
+      <a href="#assessment">Quiz</a>
+      <a href="#summary">Summary</a>
+    </div>
+  </div>
+
+  <section id="welcome" class="card hero-card">
+    <div class="emoji">🎶</div>
+    <h2>Welcome, Young Musician!</h2>
+    <p>Today we are going to learn about <strong>intervals</strong>.</p>
+    <div class="callout"><strong>Think about this:</strong> When you walk from one place to another, there is a distance between the two places. Music also has distance!</div>
+    <p>Let us discover how far apart two musical notes are.</p>
+  </section>
+
+  <section class="card">
+    <h2>🎯 Learning Objectives</h2>
+    <p>By the end of this lesson, you should be able to:</p>
+    <ul class="checklist">
+      <li>Explain what an interval is.</li>
+      <li>Tell when two notes are close or far apart.</li>
+      <li>Count simple note distances.</li>
+      <li>Give simple examples such as Do–Re and Do–Mi.</li>
+      <li>Recognise simple intervals on a music staff.</li>
+    </ul>
+  </section>
+
+  <section id="meaning" class="card">
+    <h2>📖 What Is an Interval?</h2>
+    <div class="definition">An interval is the distance between two musical notes.</div>
+    <h3>Let us use our feet! 👣</h3>
+    <p>If you take one small step, the distance is small. If you take several steps, the distance is bigger.</p>
+    <div class="steps" id="walkingSteps">
+      <span class="note">1</span><span class="note">2</span><span class="note">3</span><span class="note">4</span><span class="note">5</span>
+    </div>
+    <p class="small">In music, we also look at how far one note is from another note.</p>
+  </section>
+
+  <section id="examples" class="card">
+    <h2>🌟 Real-Life Examples</h2>
+    <div class="grid">
+      <div class="example"><div class="icon">🚶</div><h3>Walking</h3><p>One step is close. Several steps cover a greater distance.</p></div>
+      <div class="example"><div class="icon">🪜</div><h3>Stairs</h3><p>Moving from one stair to another shows distance between positions.</p></div>
+      <div class="example"><div class="icon">🦘</div><h3>Jumping</h3><p>A bigger jump covers more distance than a small step.</p></div>
+      <div class="example"><div class="icon">🎹</div><h3>Music</h3><p>Do–Re is closer than Do–Sol when we count the note names.</p></div>
+    </div>
+
+    <h3>🎵 Simple Musical Examples</h3>
+    <table>
+      <tr><th>Notes</th><th>Count</th><th>Simple idea</th></tr>
+      <tr><td>Do → Re</td><td>2</td><td>Two note names</td></tr>
+      <tr><td>Do → Mi</td><td>3</td><td>Three note names</td></tr>
+      <tr><td>Do → Fa</td><td>4</td><td>Four note names</td></tr>
+      <tr><td>Do → Sol</td><td>5</td><td>Five note names</td></tr>
+    </table>
+
+    <div class="activity">
+      <strong>🔊 Listen and Say It</strong><br>
+      <button onclick="speak('Do Re')">Do–Re 🔊</button>
+      <button onclick="speak('Do Mi')">Do–Mi 🔊</button>
+      <button onclick="speak('Do Fa')">Do–Fa 🔊</button>
+      <button onclick="speak('Do Sol')">Do–Sol 🔊</button>
+      <p class="small">Say each pair slowly. Notice how the notes move farther apart.</p>
+    </div>
+  </section>
+
+  <section id="staff" class="card">
+    <h2>🎼 Intervals on the Music Staff</h2>
+    <p>Music notes can be written on the lines and spaces of a staff. The position of one note compared with another helps us see their distance.</p>
+
+    <div class="staff" aria-label="Simple music staff diagram">
+      <svg viewBox="0 0 760 250" role="img">
+        <text x="30" y="42" font-size="25">𝄞</text>
+        <line x1="85" y1="45" x2="730" y2="45" stroke="#24324a" stroke-width="2"/>
+        <line x1="85" y1="75" x2="730" y2="75" stroke="#24324a" stroke-width="2"/>
+        <line x1="85" y1="105" x2="730" y2="105" stroke="#24324a" stroke-width="2"/>
+        <line x1="85" y1="135" x2="730" y2="135" stroke="#24324a" stroke-width="2"/>
+        <line x1="85" y1="165" x2="730" y2="165" stroke="#24324a" stroke-width="2"/>
+        <circle cx="270" cy="135" r="11" fill="#5b5be7"/>
+        <circle cx="330" cy="105" r="11" fill="#ff7aa8"/>
+        <line x1="281" y1="135" x2="319" y2="105" stroke="#ff7aa8" stroke-width="3"/>
+        <text x="248" y="205" font-size="18">Note 1</text>
+        <text x="307" y="205" font-size="18">Note 2</text>
+        <text x="390" y="92" font-size="18" fill="#5b5be7">Closer notes</text>
+
+        <circle cx="540" cy="165" r="11" fill="#5b5be7"/>
+        <circle cx="650" cy="75" r="11" fill="#ff7aa8"/>
+        <line x1="551" y1="165" x2="639" y2="75" stroke="#ff7aa8" stroke-width="3"/>
+        <text x="505" y="205" font-size="18">Note 1</text>
+        <text x="620" y="55" font-size="18">Note 2</text>
+        <text x="505" y="230" font-size="18" fill="#5b5be7">Farther apart</text>
+      </svg>
+    </div>
+
+    <div class="callout"><strong>Remember:</strong> An interval tells us the distance between two notes. The notes may be close together or farther apart.</div>
+  </section>
+
+  <section id="activity" class="card">
+    <h2>🎮 Interactive Musical Steps</h2>
+    <p>Choose how many steps the music should move. Watch the notes spread apart!</p>
+    <div style="text-align:center">
+      <button class="secondary" onclick="showSteps(1)">1 Step</button>
+      <button class="orange" onclick="showSteps(3)">3 Steps</button>
+      <button onclick="showSteps(5)">5 Steps</button>
+    </div>
+    <div class="steps" id="activityNotes"></div>
+    <p id="activityText" class="result" style="text-align:center">Choose a number of steps.</p>
+  </section>
+
+  <section id="classwork" class="card">
+    <h2>✏️ Classwork</h2>
+    <ol>
+      <li>What is an interval in music?</li>
+      <li>Is Do–Re closer or farther than Do–Sol?</li>
+      <li>How many note names are counted in Do–Mi?</li>
+      <li>Give one real-life example of distance.</li>
+      <li>Complete: Do → Re → ___ → Fa.</li>
+    </ol>
+    <div class="callout">
+      <strong>Teacher's model answers:</strong><br>
+      1. The distance between two musical notes.<br>
+      2. Do–Re is closer.<br>
+      3. Three.<br>
+      4. Walking, stairs, or jumping.<br>
+      5. Mi.
+    </div>
+  </section>
+
+  <section id="revision" class="card">
+    <h2>🔄 Revision</h2>
+    <div class="two-col">
+      <div>
+        <h3>Remember These</h3>
+        <ul>
+          <li>Interval = distance between two notes.</li>
+          <li>Close notes have a smaller distance.</li>
+          <li>Farther notes have a larger distance.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Say the Scale</h3>
+        <p style="font-size:1.25rem;font-weight:bold">Do – Re – Mi – Fa – Sol</p>
+        <button onclick="speak('Do Re Mi Fa Sol')">Say the notes 🔊</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="assessment" class="card">
+    <h2>🧠 Quick Assessment</h2>
+    <p>Choose the answer you think is correct.</p>
+
+    <div class="quiz-question">
+      <strong>1. What is an interval?</strong>
+      <button class="option" onclick="answer(this,true)">A. The distance between two musical notes</button>
+      <button class="option" onclick="answer(this,false)">B. The name of a song</button>
+      <button class="option" onclick="answer(this,false)">C. A musical instrument</button>
+      <div class="answer">Correct answer: A.</div>
+    </div>
+
+    <div class="quiz-question">
+      <strong>2. Which pair is closer?</strong>
+      <button class="option" onclick="answer(this,true)">A. Do–Re</button>
+      <button class="option" onclick="answer(this,false)">B. Do–Sol</button>
+      <button class="option" onclick="answer(this,false)">C. Do–Fa</button>
+      <div class="answer">Correct answer: A.</div>
+    </div>
+
+    <div class="quiz-question">
+      <strong>3. How many note names are counted in Do–Mi?</strong>
+      <button class="option" onclick="answer(this,false)">A. 2</button>
+      <button class="option" onclick="answer(this,true)">B. 3</button>
+      <button class="option" onclick="answer(this,false)">C. 5</button>
+      <div class="answer">Correct answer: B.</div>
+    </div>
+
+    <div class="quiz-question">
+      <strong>4. Which is a real-life example of distance?</strong>
+      <button class="option" onclick="answer(this,true)">A. Walking from one place to another</button>
+      <button class="option" onclick="answer(this,false)">B. Saying hello</button>
+      <button class="option" onclick="answer(this,false)">C. Sitting still</button>
+      <div class="answer">Correct answer: A.</div>
+    </div>
+
+    <div class="quiz-question">
+      <strong>5. Do–Fa is counted as how many note names?</strong>
+      <button class="option" onclick="answer(this,false)">A. 2</button>
+      <button class="option" onclick="answer(this,true)">B. 4</button>
+      <button class="option" onclick="answer(this,false)">C. 5</button>
+      <div class="answer">Correct answer: B.</div>
+    </div>
+  </section>
+
+  <section id="summary" class="card hero-card">
+    <div class="emoji">⭐</div>
+    <h2>Lesson Summary</h2>
+    <p><strong>An interval is the distance between two musical notes.</strong></p>
+    <p>We can understand intervals by thinking about walking steps, stairs and jumps.</p>
+    <p>Examples: <strong>Do–Re, Do–Mi, Do–Fa and Do–Sol.</strong></p>
+    <div class="callout"><strong>Homework:</strong> Write five pairs of musical notes using Do, Re, Mi, Fa and Sol. Circle the pair that you think is closest together.</div>
+  </section>
+
+  <div class="lesson-nav">
+    <button class="secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ Back to Top</button>
+    <button onclick="window.print()">🖨 Print Lesson</button>
+  </div>
+</main>
+
+<footer>
+  <strong>Grade 1 Music • Musical Intervals</strong><br>
+  <span class="small">Interactive browser-based lecture note • Designed for simple classroom learning</span>
+</footer>
+
+<script>
+function speak(text){
+  if('speechSynthesis' in window){
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.rate=.75; u.pitch=1.15;
+    speechSynthesis.speak(u);
+  }else alert(text);
+}
+function showSteps(n){
+  const box=document.getElementById('activityNotes');
+  box.innerHTML='';
+  for(let i=1;i<=n+1;i++){
+    const s=document.createElement('span');
+    s.className='note'+(i===1||i===n+1?' active':'');
+    s.textContent=i;
+    box.appendChild(s);
+  }
+  const text=n===1?'The notes are very close.':n===3?'The notes are farther apart.':'The notes are much farther apart.';
+  document.getElementById('activityText').textContent=text;
+}
+function answer(btn,correct){
+  const q=btn.parentElement;
+  q.querySelectorAll('.option').forEach(b=>b.disabled=true);
+  btn.classList.add(correct?'correct':'wrong');
+  q.querySelector('.answer').style.display='block';
+}
+const sections=[...document.querySelectorAll('main section')];
+const bar=document.getElementById('progressBar');
+const progressText=document.getElementById('progressText');
+function updateProgress(){
+  const y=window.scrollY+window.innerHeight*.45;
+  let idx=0;
+  sections.forEach((s,i)=>{if(s.offsetTop<=y) idx=i;});
+  const pct=Math.round(((idx+1)/sections.length)*100);
+  bar.style.width=pct+'%';
+  progressText.textContent='Lesson progress • '+pct+'%';
+}
+window.addEventListener('scroll',updateProgress);
+showSteps(1);
+updateProgress();
+</script>
+</body>
+</html>
